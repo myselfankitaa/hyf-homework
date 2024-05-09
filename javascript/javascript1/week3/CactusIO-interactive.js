@@ -23,6 +23,7 @@ const durationLimit = 200;
 function showStatus(activities) {
   if (activities.length === 0) {
     console.log(`Please enter some activity.`);
+    return;
   }
   let totalDuration = 0;
   for (let i = 0; i < activities.length; i++) {
