@@ -27,7 +27,7 @@ const travelInformation = {
   destinationDistance: 432,
 };
 
-function notThisFunctionName() {
+function travelTime() {
   const calculatedTravelTimeInHour =
     travelInformation.destinationDistance / travelInformation.speed;
   const calculatedTravelTimeInMinutes = (calculatedTravelTimeInHour % 1) * 60;
@@ -36,9 +36,9 @@ function notThisFunctionName() {
   )} minutes`;
 }
 
-const travelTime = notThisFunctionName(travelInformation);
+const totalTravelTime = travelTime(travelInformation);
 
-console.log(travelTime); // 8 hours and 38 minutes
+console.log(totalTravelTime); // 8 hours and 38 minutes
 
 // Part-3
 //Series duration of my life
@@ -65,14 +65,12 @@ const seriesDurations = [
 ];
 
 const lifeSpan = 80;
-const lifeSpanInHours = 80 * 365 * 24;
-let keysOfTime = ["days", "hours", "minutes"];
+const lifeSpanInHours = lifeSpan * 365 * 24;
+const keysOfTime = ["days", "hours", "minutes"];
 
 function calculateTotalTimeInHours(seriesDurations) {
-  const totalTimeInHours =
-    seriesDurations.days * 24 +
-    seriesDurations.hours +
-    seriesDurations.minutes / 60;
+  const { days, hours, minutes } = seriesDurations;
+  const totalTimeInHours = days * 24 + hours + minutes / 60;
   // console.log(totalTimeInHours);
   return totalTimeInHours;
 }
@@ -89,12 +87,12 @@ function logOutSeriesText() {
   let totalSeriesTime = 0;
   for (let i = 0; i < seriesDurations.length; i++) {
     let series = seriesDurations[i];
-    let seriesTime = 0;
+    // let seriesTime = 0;
     // console.log(seriesTime);
-    for (let j = 0; j < keysOfTime.length; j++) {
-      let key = keysOfTime[j];
-      seriesTime += series[key];
-    }
+    // for (let j = 0; j < keysOfTime.length; j++) {
+    //   let key = keysOfTime[j];
+    //   seriesTime += series[key];
+    // }
     totalSeriesTime += calculateTotalTimeInHours(series);
     const percentageOfLife =
       (calculateTotalTimeInHours(series) / lifeSpanInHours) * 100;
@@ -112,3 +110,6 @@ function logOutSeriesText() {
 // console.log(totalSeriesTime);
 
 logOutSeriesText();
+
+// // Psuedo code
+// ( (series.days * dayToMinute * series.hours * hoursToMinute * series.minutes) / (lifespan * yearToMinute) ) * 100
