@@ -13,11 +13,11 @@ function addStudentToClass(studentName) {
   }
   if (studentName.substring(0, 5) === "Queen") {
     console.log(`Welcome to class Queen`);
-    return class07Students.push(studentName);
+    class07Students.push(studentName);
   } else if (class07Students.length === 6) {
-    return console.log(`Cannot add more students to class 07.`);
+    console.log(`Cannot add more students to class 07.`);
   } else if (class07Students.length < 6) {
-    return class07Students.push(studentName);
+    class07Students.push(studentName);
   }
 }
 addStudentToClass("moni");
