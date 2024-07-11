@@ -93,10 +93,10 @@ select count(*) from task
 
 select count(*) from task where due_date is NULL
 
-select * from task inner join status on task.status_id = status.id
+select * from task join status on task.status_id = status.id
 WHERE status.name = "Done"
 
-select * from task left join status on task.status_id = status.id
+select * from task join status on task.status_id = status.id
 WHERE status.name != "Done"
 
 select * from task
@@ -115,7 +115,7 @@ WHERE task.status_id = status.id
 
 select status.name, count(task.title) as No_of_task
 from status
-INNER JOIN task WHERE status.id = task.status_id
+JOIN task WHERE status.id = task.status_id
 GROUP BY status.name
 
 select status.*, count(task.title) as No_of_task 
