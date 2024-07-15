@@ -23,17 +23,23 @@ VALUES(1, "BREAKING NEWS: Water is wet!", "Scientists have discovered that water
 
 CREATE Table tags(
   id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(20),
-  article_id INT NOT NULL,
-  Foreign Key (article_id) REFERENCES article(id)
+  name VARCHAR(20)
 )
 
-INSERT INTO tags(id, name, article_id) VALUES(1, "science", 1),
-(2, "breaking", 1),
-(3, "weather", 2),
-(4, "winter", 2),
-(5, "clickbait", 3),
-(6, "breaking", 3)
+INSERT INTO tags(name) VALUES("science"),
+("breaking"),
+("weather"),
+("winter"),
+("clickbait"),
+("breaking");
+
+create TABLE article_tag(
+  article_id INT NOT NULL,
+  tags_id INT NOT NULL,
+  PRIMARY KEY (article_id, tags_id)
+)
+
+INSERT INTO article_tag(article_id, tags_id) VALUES(1, 1),(1, 2), (2, 3), (2, 4), (2, 5), (2, 2);
 
 
 CREATE TABLE article_author(
