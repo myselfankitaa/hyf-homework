@@ -159,14 +159,10 @@ select * from meal limit 3;
 select * from review;
 
 --Get the meals that have good reviews
-select * from meal
+select meal.*, review.title, review.stars from meal
 join review
 on meal_id = meal.id
-where review.title like '%tasty%' OR 
-review.title like '%awesome%' or 
-review.title like '%yumm%' or 
-review.title like 'nice' or 
-review.title like 'super';
+where review.stars >= 4;
 
 
 --Get reservations for a specific meal sorted by created_date
