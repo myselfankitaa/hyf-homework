@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function MarsRover() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetchingMarsRover = async () => {
@@ -20,7 +20,7 @@ export default function MarsRover() {
     fetchingMarsRover();
   }, []);
 
-  if (data.length === 0) {
+  if (data === null) {
     return <div>Loading ...</div>;
   }
 
