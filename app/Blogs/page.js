@@ -1,16 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+const blogPosts = [
+  { title: "My First Post", slug: "my-first-post" },
+  { title: "Learning React", slug: "learning-react" },
+  { title: "Confusing React", slug: "confusing-react" },
+  { title: "My Last Post", slug: "my-last-post" },
+];
 export default function Blog() {
-  const blogPosts = [
-    { title: "My First Post", slug: "my-first-post" },
-    { title: "Learning React", slug: "learning-react" },
-    { title: "Confusing React", slug: "confusing-react" },
-    { title: "My Last Post", slug: "my-last-post" },
-  ];
-
   const router = useRouter();
 
   return (
