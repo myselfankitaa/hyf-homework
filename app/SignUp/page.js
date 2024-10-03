@@ -8,14 +8,12 @@ import { useRouter } from "next/navigation";
 export default function SignUp() {
   const router = useRouter();
 
-  const [emailError, setEmailError] = useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [firstNameError, setFirstNameError] = useState(false);
-  const [firstNameErrorMessage, setFirstNameErrorMessage] = useState("");
-  const [lastNameError, setLastNameError] = useState(false);
-  const [lastNameErrorMessage, setLastNameErrorMessage] = useState("");
+  const [formErrors, setFormErrors] = useState({
+    emailError: "",
+    passwordError: "",
+    firstNameError: "",
+    lastNameError: "",
+  });
 
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -29,6 +27,47 @@ export default function SignUp() {
     }
   };
 
+  const validateInputs = () => {
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const firstName = firstNameRef.current.value;
+    const lastName = lastNameRef.current.value;
+
+    let emailError = "";
+    let passwordError = "";
+    let firstNameError = "";
+    let lastNameError = "";
+
+    let isValid = true;
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      emailError = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    if (password.length < 6) {
+      passwordError = "Password must be at least 6 characters long.";
+      isValid = false;
+    }
+
+    if (firstName.trim() === "") {
+      firstNameError = "Name is required.";
+      isValid = false;
+    }
+
+    if (lastName.trim() === "") {
+      lastNameError = "Name is required.";
+      isValid = false;
+    }
+    setFormErrors({
+      emailError,
+      passwordError,
+      firstNameError,
+      lastNameError,
+    });
+    return isValid;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const isValid = validateInputs();
@@ -36,53 +75,6 @@ export default function SignUp() {
       alert("Your form has been submitted");
       router.push("/");
     }
-  };
-
-  const validateInputs = () => {
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const firstName = document.getElementById("first-name");
-    const lastName = document.getElementById("last-name");
-
-    let isValid = true;
-
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage("Please enter a valid email address.");
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage("");
-    }
-
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage("Password must be at least 6 characters long.");
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage("");
-    }
-
-    if (!firstName.value || firstName.value.length < 1) {
-      setFirstNameError(true);
-      setFirstNameErrorMessage("Name is required.");
-      isValid = false;
-    } else {
-      setFirstNameError(false);
-      setFirstNameErrorMessage("");
-    }
-
-    if (!lastName.value || lastName.value.length < 1) {
-      setLastNameError(true);
-      setLastNameErrorMessage("Name is required.");
-      isValid = false;
-    } else {
-      setLastNameError(false);
-      setLastNameErrorMessage("");
-    }
-
-    return isValid;
   };
 
   return (
@@ -113,6 +105,7 @@ export default function SignUp() {
         sx={{ marginBottom: "1rem", width: "100%" }}
         onKeyDown={(e) => handleKeyDown(e, lastNameRef)}
       />
+      {formErrors.firstNameError && <p>{formErrors.firstNameError}</p>}
 
       <TextField
         required
@@ -123,6 +116,8 @@ export default function SignUp() {
         sx={{ marginBottom: "1rem", width: "100%" }}
         onKeyDown={(e) => handleKeyDown(e, emailRef)}
       />
+
+      {formErrors.lastNameError && <p>{formErrors.lastNameError}</p>}
 
       <TextField
         required
@@ -135,6 +130,8 @@ export default function SignUp() {
         onKeyDown={(e) => handleKeyDown(e, passwordRef)}
       />
 
+      {formErrors.emailError && <p>{formErrors.emailError}</p>}
+
       <TextField
         required
         id="password"
@@ -144,6 +141,8 @@ export default function SignUp() {
         sx={{ marginBottom: "1rem", width: "100%" }}
         onKeyDown={(e) => handleKeyDown(e, firstNameRef)}
       />
+
+      {formErrors.passwordError && <p>{formErrors.passwordError}</p>}
 
       <Button type="submit" variant="contained" color="primary">
         Submit
