@@ -44,7 +44,7 @@ export default function NASAEpicImage() {
     return <div>No image found for this date.</div>;
   }
 
-  const imageUrl = `https://api.nasa.gov/EPIC/archive/natural/${date.replace(
+  const imageUrl = `https://api.nasa.gov/EPIC/archive/natural/${date.replaceAll(
     /-/g,
     "/"
   )}/png/${imageData.image}.png?api_key=DEMO_KEY`;
