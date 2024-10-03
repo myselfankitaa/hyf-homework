@@ -1,9 +1,5 @@
-"use client";
-import { usePathname, useSearchParams } from "next/navigation";
-
-export default function BlogPost() {
-  const path = usePathname();
-  const slug = path.split("/")[2];
+export default function BlogPost({ params }) {
+  const slug = params.slug;
 
   const title = slug
     .replace(/-/g, " ")
